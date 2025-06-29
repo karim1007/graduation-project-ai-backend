@@ -5,8 +5,8 @@ from pinecone import Pinecone
 from typing import Optional, List
 import json
 # === Setup ===
-openai_api_key = os.getenv("OPENAI_API_KEY")
-pinecone_api_key = os.getenv("PINECONE_API_KEY")
+openai_api_key = "***REMOVED***"
+pinecone_api_key = "***REMOVED***"
 
 # Initialize Pinecone client and index
 pc = Pinecone(api_key=pinecone_api_key)
@@ -32,6 +32,8 @@ def search_resumes(job_description: str, top_k: int = 3, filters: Optional[dict]
     resumes = []
     seen = set()
     for hit in results["result"]["hits"]:
+        print(hit)
+        score = hit["_score"]
         row = hit["fields"]
         id= hit["_id"]
         if row["file_content"] not in seen:
@@ -39,7 +41,8 @@ def search_resumes(job_description: str, top_k: int = 3, filters: Optional[dict]
             resumes.append({
                 "ID": id,
                 "filename": row.get("filename", "Unnamed"),
-                "content": row.get("file_content", "")
+                "content": row.get("file_content", ""),
+                "score": score
             })
 
     return resumes
@@ -85,5 +88,13 @@ def choose_best_candiate(job_description: str, top_k: int = 3) -> dict:
 
     summary = generate_summary(job_description, top_resumes)
     parsed_output = json.loads(summary)
-    return parsed_output
+    target_id = parsed_output.get("best_candidate_id")
+    result = next((item for item in top_resumes if item["ID"] == target_id), None)
+    confidence_score = result["score"] if result else 0.0
+    return {
+        "best_candidate_id": target_id,
+        "best_candidate_name": result["filename"] if result else "Unknown",
+        "reason": parsed_output.get("reason", ""),
+        "confidence_score": confidence_score
+    }
 
