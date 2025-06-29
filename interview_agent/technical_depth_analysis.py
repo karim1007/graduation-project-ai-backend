@@ -21,6 +21,7 @@ Return a JSON object:
   "reasoning": "...",
   "thought_process_considered": "Yes/No with justification"
 }}
+                                                   
 """)
 evaluate_chain: Runnable = evaluate_prompt | llm | JsonOutputParser()
 
@@ -65,15 +66,14 @@ def generate_exam_summary(qa_and_eval: List[Dict]) -> str:
     }).content
 
 # === ✅ Main Function ===
-def run_exam_pipeline(input_json_path: str, output_json_path: str, candidate_answers: List[str]):
-    with open(input_json_path, "r") as f:
-        data = json.load(f)
+def run_exam_pipeline(question_list: List[str], golden_answers_list: List[str], candidate_answers: List[str]):
 
-    questions = data["questions"]
-    golden_answers = data["answers"]
+
+    # questions = data["questions"]
+    # golden_answers = data["answers"]
     #assuming we will get the questions and answers from the input JSON
-    #questions = quesiton_list
-    #golden_answers = golden_answer_list
+    questions = question_list
+    golden_answers = golden_answers_list
     assert len(candidate_answers) == len(questions)
 
     print("🔍 Evaluating each answer...")
@@ -98,12 +98,10 @@ def run_exam_pipeline(input_json_path: str, output_json_path: str, candidate_ans
         "final_grade": final_grade
     }
 
-    with open(output_json_path, "w") as f:
-        json.dump(result, f, indent=2)
 
-    print(f"✅ Evaluation saved to {output_json_path}")
     print("\n📋 Exam Summary:\n")
-    print(exam_summary)
+    print(result)
+    return result
 def calculate_grade(evaluations: List[Dict]) -> float:
     score = 0.0
     for ev in evaluations:
@@ -128,8 +126,4 @@ if __name__ == "__main__":
         "Not sure how to implement this",
     ]
 
-    run_exam_pipeline(
-        input_json_path="qa_pairs.json",
-        output_json_path="exam_results.json",
-        candidate_answers=candidate_answers
-    )
+    
