@@ -119,7 +119,7 @@ def agent_generate_questions(job_description: str, total_questions: int = 10) ->
     return results
 
 
-if __name__ == "__main__":
+def generate_questions(Job_Description: str, total_questions: int):
     jd = """
     Job Summary:
 
@@ -163,7 +163,7 @@ Familiarity with natural language processing (NLP) and computer vision technique
 Strong problem-solving and critical-thinking skills.
     """
 
-    questions = agent_generate_questions(jd, total_questions=10)
+    questions = agent_generate_questions(Job_Description, total_questions)
 
     for i, q in enumerate(questions, 1):
         print(f"\nQ{i}: {q['text']}")
@@ -175,9 +175,12 @@ Strong problem-solving and critical-thinking skills.
     # Extract questions and answers into JSON format
     qa_json = {
         "questions": [q['text'] for q in questions],
-        "answers": [q['answer'] for q in questions]
+        "answers": [q['answer'] for q in questions],
+        "types": [q['type'] for q in questions],
+        "difficulties": [q['difficulty'] for q in questions],
+        "domains": [q['domain'] for q in questions]
     }
-
+    
     # Save to file
-    with open('qa_results.json', 'w') as f:
-        json.dump(qa_json, f, indent=2)
+    return qa_json
+
