@@ -1,7 +1,14 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, File, UploadFile
 from fastapi.responses import JSONResponse
 from interview_agent.technical_depth_analysis import run_exam_pipeline
+from interview_agent.speech_to_text import transcribe_mp3
 router = APIRouter()
+
+@router.post("/transcribe-audio")
+async def transcribe_audio(file: UploadFile = File(...)):
+    text = transcribe_mp3(file)
+
+    return {"transcription": text}
 
 @router.post("/evaluate")
 async def evaluate(request: Request):
