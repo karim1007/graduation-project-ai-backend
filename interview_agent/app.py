@@ -38,3 +38,13 @@ async def evaluate(request: Request):
     )
 
     return JSONResponse(content=result)
+
+@router.post("/upload-video")
+async def upload_video(file: UploadFile = File(...)):
+    # Save the uploaded video file to disk or process as needed
+    contents = await file.read()
+    file_location = "video.mp4"
+    with open(file_location, "wb") as f:
+        f.write(contents)
+    return {"filename": "video.mp4", "message": "Video uploaded successfully."}
+
