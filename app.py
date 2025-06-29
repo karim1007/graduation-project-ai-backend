@@ -8,6 +8,8 @@ app = FastAPI()
 app.include_router(router1, prefix="/cv-agent")
 app.include_router(router2, prefix="/exam-generation-agent")
 app.include_router(router3, prefix="/interview-agent")
+#TODO ADD A ROUTER FOR THE PROCTOR AGENT
+# app.include_router(router4, prefix="/proctor-agent")  # Uncomment when proctor agent is ready
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
