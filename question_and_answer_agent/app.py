@@ -1,9 +1,11 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from search_and_filter_agent import generate_questions
-app = FastAPI()
+from question_and_answer_agent.search_and_filter_agent import generate_questions
+from fastapi import APIRouter
 
-@app.post("/generate-questions")
+router = APIRouter()
+
+@router.post("/generate-questions")
 async def generate_question(request: Request):
     data = await request.json()
     job_description = data.get("job_description")
@@ -20,4 +22,4 @@ async def generate_question(request: Request):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(router, host="0.0.0.0", port=8000)

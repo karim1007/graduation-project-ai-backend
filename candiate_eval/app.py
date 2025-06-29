@@ -2,11 +2,13 @@ from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.responses import JSONResponse
 import uuid
 import os
-from cv_processor import extract_text_from_pdf, index_resume_to_pinecone
-from agent import choose_best_candiate
-app = FastAPI()
+from candiate_eval.cv_processor import extract_text_from_pdf, index_resume_to_pinecone
+from candiate_eval.agent import choose_best_candiate
+from fastapi import APIRouter
 
-@app.post("/upload-resume_to_pinecone/")
+router = APIRouter()
+
+@router.post("/upload-resume_to_pinecone/")
 async def upload_pdf(
     file: UploadFile = File(...),
     id_key: str = Form(...)  # Form field required
@@ -34,7 +36,7 @@ async def upload_pdf(
         os.remove(temp_path)
 
 
-@app.post("/choose_best_resume/")
+@router.post("/choose_best_resume/")
 async def choose_best_resume(request_body: dict):
     job_description = request_body.get("job_description")
     if not job_description:
@@ -47,4 +49,4 @@ async def choose_best_resume(request_body: dict):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(router, host="0.0.0.0", port=8000)
