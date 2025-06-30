@@ -9,3 +9,5 @@ Test_Cheating_Detection\yolov8l.pt
 Test_Cheating_Detection/yolov8l.pt
 Test_Cheating_Detection/content/
 yolov8l.pt
+interview_agent\__pycache__
+*.pyc
