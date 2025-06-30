@@ -109,7 +109,7 @@ def process_directory(directory_path):
 
 # Example usage
 if __name__ == "__main__":
-    dir_path = "content"
+    dir_path = "Test_Cheating_Detection\\frames\\kokita"
     results = process_directory(dir_path)
     
     # Print the results as JSON strings

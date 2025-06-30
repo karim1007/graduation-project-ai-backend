@@ -70,7 +70,7 @@ def extract_frames(video_path, output_dir, interval=2):
         if count % frame_interval == 0:
             current_time_sec = count / fps
             
-            filename = f"frame_{timestamp}_sec{int(current_time_sec):04d}_{frame_count:04d}.jpg"
+            filename = f"frame_{frame_count:04d}.jpg"
             output_path = os.path.join(output_dir, filename)
             
             cv2.imwrite(output_path, frame)
