@@ -2,8 +2,8 @@ from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.responses import JSONResponse
 import uuid
 import os
-from candiate_eval.cv_processor import extract_text_from_pdf, index_resume_to_pinecone
-from candiate_eval.agent import choose_best_candiate
+from cv_agent.cv_processor import extract_text_from_pdf, index_resume_to_pinecone
+from cv_agent.agent import choose_best_candiate
 from fastapi import APIRouter
 
 router = APIRouter()
