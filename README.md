@@ -126,8 +126,6 @@ curl -X POST "http://localhost:8000/cv-agent/choose_best_resume/" \
 {
   "job_description": "Senior Python Developer",
   "num_questions": 5,
-  "difficulty_level": "intermediate",
-  "focus_areas": ["algorithms", "web_development", "databases"]
 }
 ```
 
@@ -148,10 +146,25 @@ curl -X POST "http://localhost:8000/exam-generation-agent/generate-questions" \
     "Explain the difference between asyncio and threading in Python",
     "How would you optimize a slow database query?"
   ],
-  "golden_answers": [
+  "answers": [
     "asyncio is for I/O-bound concurrency using coroutines and event loops, while threading uses OS threads for parallel execution",
     "Use indexes, query optimization, connection pooling, and caching strategies"
-  ]
+  ],
+  "types": [
+        "coding",
+        "essay",
+        "true_false"
+    ],
+    "difficulties": [
+        "hard",
+        "hard",
+        "medium"
+    ],
+    "domains": [
+        "Deep Learning",
+        "machine learning",
+        "AI Ethics"
+    ]
 }
 ```
 
@@ -181,7 +194,7 @@ curl -X POST "http://localhost:8000/interview-agent/transcribe-audio" \
 ```
 
 #### 2. Evaluate Interview
-**Endpoint:** `POST /interview-agent/evaluate`
+**Endpoint:** `POST /interview-agent/evaluate-exam`
 
 **Purpose:** Provide comprehensive technical evaluation of candidate responses using AI analysis.
 
@@ -206,19 +219,16 @@ curl -X POST "http://localhost:8000/interview-agent/transcribe-audio" \
 **Response:**
 ```json
 {
-  "questions_evaluated": [
-    {
-      "question": "Explain the difference between asyncio and threading in Python",
-      "golden_answer": "asyncio is for I/O-bound concurrency...",
-      "candidate_answer": "asyncio lets you write concurrent code...",
-      "evaluation": {
-        "score": 7.5,
-        "feedback": "Good understanding of asyncio basics, but missing key differences with threading",
-        "strengths": ["Correct asyncio explanation", "Understands coroutines"],
-        "improvements": ["Explain threading differences", "Mention use cases"]
-      }
-    }
-  ],
+  "questions_evaluated": 
+    { 
+            "question": "questions[i]",
+            "golden_answer": "golden_answers[i]",
+            "candidate_answer": "candidate_answers[i]",
+            "evaluation" : "explanation[i]"
+        }
+      ,
+    
+  
   "exam_summary": "Candidate demonstrates solid foundational knowledge with room for deeper technical understanding. Strong in basic concepts but needs improvement in comparative analysis.",
   "final_grade": 75.5,
   "recommendation": "Consider for junior-mid level position with mentoring"
@@ -231,19 +241,7 @@ curl -X POST "http://localhost:8000/interview-agent/transcribe-audio" \
 - Identifies strengths and improvement areas
 - Provides hiring recommendations
 
-#### 3. Upload Video
-**Endpoint:** `POST /interview-agent/upload-video`
-
-**Purpose:** Upload interview video files for analysis and storage.
-
-**Parameters:**
-- `file` (form-data): Video file (.mp4, .mov, .avi formats)
-- `candidate_id` (form-data): Unique identifier for the candidate
-
-**Features:**
-- Video format validation
-- Secure file storage
-- Metadata extraction
+#### 3. emaraty part (interview analysis)
 
 ### Proctor Agent (`/proctor-agent`)
 

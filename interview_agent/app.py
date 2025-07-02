@@ -15,7 +15,7 @@ async def transcribe_audio(file: UploadFile = File(...)):
 
     return {"transcription": text}
 
-@router.post("/evaluate")
+@router.post("/evaluate-exam")
 async def evaluate(request: Request):
     data = await request.json()
     
