@@ -35,4 +35,5 @@ async def upload_video(file: UploadFile = File(...), candidate_name: str = Form(
     print(res)
     time.sleep(3)
     shutil.rmtree("Test_Cheating_Detection\\frames")
+    os.remove(save_path)
     return JSONResponse(content=res)
