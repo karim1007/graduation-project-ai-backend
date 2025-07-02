@@ -25,7 +25,7 @@ def analyze_emotional_state(video_path, frame_interval=30):
     peak_stress_frame = None
     peak_stress_img = None
 
-    os.makedirs("output/frames", exist_ok=True)
+    os.makedirs("interview_agent/output/frames", exist_ok=True)
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -46,7 +46,7 @@ def analyze_emotional_state(video_path, frame_interval=30):
 
                 # 1. First frame where fear > 50%
                 if not fear_snapshot_taken and emotion_scores.get("fear", 0) > 50:
-                    cv2.imwrite(f"output/frames/fear_over_50_frame_{frame_idx}.jpg", frame)
+                    cv2.imwrite(f"interview_agent/output/frames/fear_over_50_frame_{frame_idx}.jpg", frame)
                     fear_snapshot_taken = True
 
                 # 2. Peak happy frame
@@ -70,10 +70,10 @@ def analyze_emotional_state(video_path, frame_interval=30):
 
     # Save peak emotion frames
     if peak_happy_img is not None:
-        cv2.imwrite(f"output/frames/peak_happy_frame_{peak_happy_frame}.jpg", peak_happy_img)
+        cv2.imwrite(f"interview_agent/output/frames/peak_happy_frame_{peak_happy_frame}.jpg", peak_happy_img)
 
     if peak_stress_img is not None:
-        cv2.imwrite(f"output/frames/peak_stress_frame_{peak_stress_frame}.jpg", peak_stress_img)
+        cv2.imwrite(f"interview_agent/output/frames/peak_stress_frame_{peak_stress_frame}.jpg", peak_stress_img)
 
     cap.release()
     pbar.close()
@@ -95,11 +95,11 @@ def analyze_emotional_state(video_path, frame_interval=30):
         }
     }
 
-    os.makedirs("output", exist_ok=True)
-    with open("output/confidence_stress_analysis.json", "w") as f:
+    os.makedirs("interview_agent/output", exist_ok=True)
+    with open("interview_agent/output/confidence_stress_analysis.json", "w") as f:
         json.dump(result, f, indent=2)
 
-    print("✅ Analysis complete. Results and frames saved to: output/")
+    print("✅ Analysis complete. Results and frames saved to: interview_agent/output/")
 
 def infer_confidence(emotions):
     confident_emotions = emotions.get("happy", 0) + emotions.get("neutral", 0)

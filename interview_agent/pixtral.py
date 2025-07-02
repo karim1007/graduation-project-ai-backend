@@ -1,6 +1,7 @@
 import os
 import json
 import glob
+import time
 from mistralai import Mistral
 
 # === Configuration ===
@@ -53,6 +54,7 @@ Based on the above data, write a professional and concise evaluation of the cand
 
 def analyze_with_pixtral_model(output_dir: str):
     # Paths
+    time.sleep(2)
     report_path = os.path.join(output_dir, "confidence_stress_analysis.json")
     frames_dir = os.path.join(output_dir, "frames")
 
@@ -73,6 +75,7 @@ def analyze_with_pixtral_model(output_dir: str):
 
     # Save output
     output_path = os.path.join(output_dir, "pixtral_summary.txt")
+    return summary_text
     with open(output_path, "w") as f:
         f.write(summary_text)
 
