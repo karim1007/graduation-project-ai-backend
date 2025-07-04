@@ -4,7 +4,10 @@ from langchain.schema import HumanMessage
 from pinecone import Pinecone
 from typing import Optional, List
 import json
+import openai
 # === Setup ===
+openai.api_key = "***REMOVED***"  # Preferably use os.getenv()
+
 openai_api_key = "***REMOVED***"
 pinecone_api_key = "***REMOVED***"
 
@@ -100,3 +103,33 @@ def choose_best_candiate(job_description: str, top_k: int = 3) -> dict:
         "email": parsed_output.get("email", "Unknown")
     }
 
+
+def generate_job_detailss(job_title: str, department: str, employment_type: str, experience_level: str) -> dict:
+    prompt = (
+        f"Create a job description and list of responsibilities for the following role:\n\n"
+        f"Job Title: {job_title}\n"
+        f"Department: {department}\n"
+        f"Employment Type: {employment_type}\n"
+        f"Experience Level: {experience_level}\n\n"
+        f"Return the result strictly in the following JSON format:\n\n"
+        f"""{{
+  "job_description": "...",
+  "responsibilities": ["...", "...", "..."]
+}}"""
+    )
+
+    response = openai.chat.completions.create(
+        model="gpt-4.1-mini",  # or "gpt-3.5-turbo"
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+        
+    )
+
+    # Parse and return the JSON from the response
+    import json
+    content = response.choices[0].message.content.strip()
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        raise ValueError("LLM did not return valid JSON. Raw output:\n" + content)
+    
