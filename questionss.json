@@ -1,0 +1,87 @@
+[
+  {
+    "question": "Which of the following techniques is most commonly used for reducing the dimensionality of image data before feeding it into a machine learning model?\nA) Histogram Equalization\nB) Principal Component Analysis (PCA)\nC) Non-Maximum Suppression\nD) Template Matching",
+    "answer": "B) Principal Component Analysis (PCA) is widely used for reducing the dimensionality of image data. PCA transforms the original data into a set of linearly uncorrelated components (principal components), capturing the most variance with fewer dimensions. This is especially helpful in computer vision to decrease computational complexity and mitigate the curse of dimensionality before applying machine learning algorithms.",
+    "type": "mcq",
+    "difficulty": "medium",
+    "domain": "Computer vision"
+  },
+  {
+    "question": "Which of the following is a primary concern regarding the use of facial recognition technology in public spaces from an AI ethics perspective?\nA) High computational cost\nB) Violation of privacy rights\nC) Lack of color accuracy\nD) Slow image rendering",
+    "answer": "The correct answer is B) Violation of privacy rights. From an AI ethics perspective, the deployment of facial recognition technology in public spaces often raises significant concerns about privacy. These systems can track individuals without their consent, potentially leading to unauthorized surveillance, profiling, and loss of anonymity, which are major ethical issues.",
+    "type": "mcq",
+    "difficulty": "medium",
+    "domain": "AI Ethics"
+  },
+  {
+    "question": "Which of the following statements best describes the amortized time complexity of the 'decrease-key' operation in a Fibonacci Heap, and how does it compare to the same operation in a binary heap?\nA) O(1) in Fibonacci Heap and O(log n) in Binary Heap\nB) O(log n) in Fibonacci Heap and O(1) in Binary Heap\nC) O(log n) in both heaps\nD) O(1) in both heaps",
+    "answer": "The correct answer is A) O(1) in Fibonacci Heap and O(log n) in Binary Heap. In a Fibonacci Heap, the decrease-key operation can be performed in constant amortized time due to the lazy structure and the use of cascading cuts. In contrast, in a binary heap, decrease-key requires up to O(log n) time to restore the heap property by traversing up the tree. This difference is one of the reasons why Fibonacci Heaps are theoretically more efficient for certain algorithms, such as Dijkstra's shortest path.",
+    "type": "mcq",
+    "difficulty": "hard",
+    "domain": "data structures"
+  },
+  {
+    "question": "In the context of object detection using the YOLO (You Only Look Once) algorithm, which of the following best describes how YOLO makes predictions on an input image?\nA) By sliding a window across the image and classifying each window independently\nB) By dividing the image into a grid and predicting bounding boxes and class probabilities for each grid cell\nC) By clustering feature maps using k-means before classification\nD) By first segmenting the image and then applying a support vector machine to each segment",
+    "answer": "The correct answer is B) By dividing the image into a grid and predicting bounding boxes and class probabilities for each grid cell. YOLO works by splitting the input image into an SxS grid, with each grid cell responsible for predicting a fixed number of bounding boxes and their associated class probabilities. This allows YOLO to perform object detection in a single forward pass, making it both fast and efficient compared to traditional sliding window or region proposal-based methods.",
+    "type": "mcq",
+    "difficulty": "medium",
+    "domain": "Computer vision"
+  },
+  {
+    "question": "Which of the following data structures is most suitable for implementing a Least Recently Used (LRU) cache with efficient O(1) time complexity for both get and put operations, and why?\nA) Singly linked list\nB) Hash map combined with a doubly linked list\nC) Binary search tree\nD) Circular queue",
+    "answer": "The correct answer is B) Hash map combined with a doubly linked list. An LRU cache requires both fast access (for get operations) and fast updates (for put operations and reordering recently used elements). A hash map provides O(1) access to cache entries, while a doubly linked list maintains the order of usage, allowing quick removal and addition of nodes at both ends. This combination ensures both get and put operations can be performed in constant time. Other structures like singly linked lists, binary search trees, or circular queues either do not provide O(1) access or are inefficient for reordering elements.",
+    "type": "mcq",
+    "difficulty": "hard",
+    "domain": "data structures"
+  },
+  {
+    "question": "Which of the following is used to uniquely identify a record in a relational database table?",
+    "answer": "The correct answer is: A) Primary key. In a relational database, a primary key is a column or a set of columns that uniquely identifies each row in a table. No two rows can have the same value for the primary key, ensuring each record can be uniquely referenced.",
+    "type": "mcq",
+    "difficulty": "easy",
+    "domain": "databases"
+  },
+  {
+    "question": "Which of the following statements about skip lists is TRUE regarding their average-case search, insertion, and deletion time complexities, and the underlying probabilistic balancing mechanism?\nA) All operations run in O(n) time due to lack of balancing; nodes are promoted deterministically.\nB) All operations have O(log n) average-case time due to probabilistic promotion of nodes, which maintains balance without strict rebalancing.\nC) Search is O(1) on average, but insertion and deletion require O(n log n) due to randomization.\nD) Skip lists rely on explicit balancing algorithms like AVL or Red-Black trees to achieve O(log n) operations.",
+    "answer": "B) All operations have O(log n) average-case time due to probabilistic promotion of nodes, which maintains balance without strict rebalancing. Skip lists use randomization to decide the level of each node, allowing efficient search, insertion, and deletion in expected O(log n) time without the need for complex, deterministic balancing as found in AVL or Red-Black trees.",
+    "type": "mcq",
+    "difficulty": "hard",
+    "domain": "data structures"
+  },
+  {
+    "question": "Which of the following regularization techniques is specifically designed to encourage sparsity at the group level, allowing entire groups of related features to be excluded from a machine learning model during training?\nA) L1 (Lasso) Regularization\nB) Dropout Regularization\nC) Group Lasso Regularization\nD) Ridge (L2) Regularization",
+    "answer": "C) Group Lasso Regularization. Group Lasso is a regularization technique that extends Lasso's L1 penalty to grouped features. Instead of shrinking individual coefficients toward zero, Group Lasso applies the L2 norm over predefined groups of coefficients and then applies an L1 penalty to the group norms. This encourages entire groups of features to be set to zero, effectively performing group-level feature selection. This is particularly useful when features are naturally clustered (e.g., categorical variables expanded into dummy variables, or multi-channel sensor data). L1 regularization encourages sparsity at the individual feature level, while Ridge (L2) regularization shrinks coefficients but does not enforce sparsity. Dropout is a neural network regularization technique unrelated to grouped feature selection.",
+    "type": "mcq",
+    "difficulty": "hard",
+    "domain": "machine learning"
+  },
+  {
+    "question": "Which of the following software development methodologies emphasizes iterative development, customer collaboration, and responding to change over following a strict plan?\nA) Waterfall\nB) Agile\nC) V-Model\nD) Spiral",
+    "answer": "The correct answer is B) Agile. Agile methodology is a software development approach that prioritizes iterative progress, customer collaboration, and flexibility to adapt to changing requirements, rather than strictly following a predetermined plan. This contrasts with traditional methods like Waterfall, which are more linear and rigid.",
+    "type": "mcq",
+    "difficulty": "easy",
+    "domain": "software engineering"
+  },
+
+  {
+    "question": "Which of the following characteristics best distinguishes a Platform as a Service (PaaS) offering from Infrastructure as a Service (IaaS) in cloud computing?\nA) PaaS provides users with direct access to virtualized hardware resources like storage and networking.\nB) PaaS allows developers to deploy applications without managing underlying operating systems or middleware.\nC) PaaS is primarily intended for storing large volumes of unstructured data.\nD) PaaS requires users to manually configure hypervisors and virtual machines.",
+    "answer": "B) PaaS allows developers to deploy applications without managing underlying operating systems or middleware. Unlike IaaS, which provides access to fundamental computing resources (such as virtual machines, storage, and networking) requiring users to manage operating systems and runtime environments themselves, PaaS abstracts away these layers. It offers a ready-to-use environment for application development, deployment, and management, handling OS updates, scaling, and middleware behind the scenes.",
+    "type": "mcq",
+    "difficulty": "medium",
+    "domain": "Cloud Computing"
+  },
+  {
+    "question": "Which of the following data structures is most efficient for checking whether an element exists in a collection, assuming frequent lookups and minimal concern for element order?\nA) Stack\nB) Hash Set\nC) Linked List\nD) Queue",
+    "answer": "B) Hash Set. A hash set is optimized for fast lookups, typically providing average-case O(1) time complexity for checking whether an element exists. Stacks, queues, and linked lists require O(n) time in the worst case to search for an element, making them less efficient for this purpose.",
+    "type": "mcq",
+    "difficulty": "easy",
+    "domain": "data structures"
+  },
+  {
+    "question": "In Python, which of the following statements about list comprehensions is correct?\nA) List comprehensions can only be used with lists, not other iterable types.\nB) List comprehensions can include conditional logic to filter items.\nC) List comprehensions always require an else clause.\nD) List comprehensions cannot produce nested lists.",
+    "answer": "B) List comprehensions can include conditional logic to filter items. In Python, you can use an 'if' clause at the end of a list comprehension to filter elements based on a condition. For example: [x for x in range(10) if x % 2 == 0] creates a list of even numbers from 0 to 9. The other statements are incorrect: list comprehensions can work with any iterable, an else clause is not required, and list comprehensions can produce nested lists.",
+    "type": "mcq",
+    "difficulty": "medium",
+    "domain": "python"
+  }
+]

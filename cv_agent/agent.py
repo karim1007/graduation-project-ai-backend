@@ -72,8 +72,9 @@ CANDIDATE RESUMES:
 OUTPUT FORMAT (JSON):
 {{
   "best_candidate_id": "(insert ID of candidate)",
-  "best_candidate_name": "(insert name of candidate)",
-  "reason": "Brief but clear explanation why this candidate is the best match for the job, including specific skills, experience, or education that align with the job description."
+  "best_candidate_name": "(insert name of candidate)" infer it from the resume,
+  "reason": "Brief but clear explanation why this candidate is the best match for the job, including specific skills, experience, or education that align with the job description.",
+  "email": "(insert email of candidate if available)"
 }}
 """
     response = llm.invoke([HumanMessage(content=prompt)])
@@ -93,8 +94,9 @@ def choose_best_candiate(job_description: str, top_k: int = 3) -> dict:
     confidence_score = result["score"] if result else 0.0
     return {
         "best_candidate_id": target_id,
-        "best_candidate_name": result["filename"] if result else "Unknown",
+        "best_candidate_name": parsed_output.get("best_candidate_name", result["filename"]),
         "reason": parsed_output.get("reason", ""),
-        "confidence_score": confidence_score
+        "confidence_score": confidence_score,
+        "email": parsed_output.get("email", "Unknown")
     }
 
