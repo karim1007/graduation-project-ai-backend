@@ -5,6 +5,7 @@ from interview_agent.technical_depth_analysis import run_exam_pipeline
 from interview_agent.speech_to_text import transcribe_mp3
 from interview_agent.emotion import analyze_emotional_state
 from interview_agent.pixtral import analyze_with_pixtral_model
+from interview_agent.report import analyze_video_workflow
 import shutil
 import os
 router = APIRouter()
@@ -58,5 +59,22 @@ async def emotional_analysis(file: UploadFile = File(...)):
     os.remove(video_path)
     return JSONResponse(content={
         "message": "Emotional analysis completed successfully.",
+        "result": result
+    })
+
+
+@router.post("/interview-analysis")
+async def interview_analysis(file: UploadFile = File(...)):
+    # Save the uploaded video file to disk or process as needed
+    contents = await file.read()
+    file_location = "interview_agent/video.mp4"
+    with open(file_location, "wb") as f:
+        f.write(contents)
+    video_path = file_location
+    result = analyze_video_workflow(video_path)
+    shutil.rmtree("interview_agent/output", ignore_errors=True)
+    os.remove(video_path)
+    return JSONResponse(content={
+        "message": "Interview analysis completed successfully.",
         "result": result
     })
