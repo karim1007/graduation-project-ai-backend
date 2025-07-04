@@ -5,7 +5,7 @@ import os
 from cv_agent.cv_processor import extract_text_from_pdf, index_resume_to_pinecone
 from cv_agent.agent import choose_best_candiate
 from fastapi import APIRouter
-
+from cv_agent.agent import generate_job_detailss
 router = APIRouter()
 
 @router.post("/upload-resume_to_pinecone/")
@@ -47,6 +47,26 @@ async def choose_best_resume(request_body: dict):
         summary
     )
 
+@router.post("/generate_job_details/")
+async def generate_job_details(request_body: dict):
+    try:
+        job_title = request_body.get("job_title")
+        department = request_body.get("department")
+        employment_type = request_body.get("employment_type")
+        experience_level = request_body.get("experience_level")
+
+        if not all([job_title, department, employment_type, experience_level]):
+            raise HTTPException(status_code=400, detail="Missing required fields")
+
+        result = generate_job_detailss(
+            job_title=job_title,
+            department=department,
+            employment_type=employment_type,
+            experience_level=experience_level
+        )
+        return JSONResponse(content=result)
+    except ValueError as e:
+        raise HTTPException(status_code=500, detail=str(e))
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(router, host="0.0.0.0", port=8000)
