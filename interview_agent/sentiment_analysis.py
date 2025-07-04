@@ -199,12 +199,7 @@ def analyze_interview_advanced(interview_text: str, save_to_file: bool = True) -
         
         print("Analysis completed successfully!")
         
-        # Save to file if requested
-        if save_to_file:
-            output_file = f'interview_analysis_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json'
-            with open(output_file, 'w', encoding='utf-8') as f:
-                json.dump(result.dict(), f, indent=2, ensure_ascii=False)
-            print(f"Results saved to: {output_file}")
+
         
         return result
         

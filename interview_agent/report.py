@@ -296,9 +296,9 @@ def analyze_video_workflow(video_path: str) -> dict:
         "pixtral_insights": pixtral_insights
     }
     pdf_path = generate_pdf_report(result)
-
+    
     encoded = encode_pdf_to_base64(pdf_path)
-
+    os.remove(pdf_path)  # Clean up the PDF file after encoding
     # Final result
     return {
         "sentiment_analysis": report,
