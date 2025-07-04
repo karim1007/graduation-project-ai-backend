@@ -74,6 +74,7 @@ async def interview_analysis(file: UploadFile = File(...)):
     result = analyze_video_workflow(video_path)
     shutil.rmtree("interview_agent/output", ignore_errors=True)
     os.remove(video_path)
+    
     return JSONResponse(content={
         "message": "Interview analysis completed successfully.",
         "result": result
