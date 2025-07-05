@@ -9,7 +9,7 @@ from Test_Cheating_Detection.detection import process_candidate_exam
 from Test_Cheating_Detection.generate_pics_from_videos import extract_frames
 router = APIRouter()
 
-VIDEO_DIR = "Test_Cheating_Detection\\videos"
+VIDEO_DIR = "/home/yassin/Desktop/pantheon/agents/Test_Cheating_Detection/videos"
 os.makedirs(VIDEO_DIR, exist_ok=True)
 
 @router.post("/check-cheating/")
