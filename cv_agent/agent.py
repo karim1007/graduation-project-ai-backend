@@ -106,7 +106,7 @@ def choose_best_candiate(job_description: str, top_k: int = 3) -> dict:
 
 def generate_job_detailss(job_title: str, department: str, employment_type: str, experience_level: str) -> dict:
     prompt = (
-        f"Create a job description and list of responsibilities for the following role:\n\n"
+        f"Create a job description and list of responsibilities and requirements for the following role:\n\n"
         f"Job Title: {job_title}\n"
         f"Department: {department}\n"
         f"Employment Type: {employment_type}\n"
@@ -114,8 +114,10 @@ def generate_job_detailss(job_title: str, department: str, employment_type: str,
         f"Return the result strictly in the following JSON format:\n\n"
         f"""{{
   "job_description": "...",
-  "responsibilities": ["...", "...", "..."]
+  "responsibilities": ["...", "...", "..."],
+  "requirements": "..."
 }}"""
+f"Be as detailed as possible, including specific skills, qualifications, and any other relevant information."
     )
 
     response = openai.chat.completions.create(
