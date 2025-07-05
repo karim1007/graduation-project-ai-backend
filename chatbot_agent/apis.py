@@ -50,10 +50,10 @@ def create_assessment_supabase(assessment_data: dict) -> dict:
     :return: dict with 'status_code' and 'response' (parsed JSON)
     """
     url = f"{SUPABASE_URL}/assessments"
+    
     resp = requests.post(url, headers=HEADERS, json=assessment_data)
     return {
-        "status_code": resp.status_code,
-        "response": resp.json()
+        "status_code": resp.status_code
     }
 
 DEFAULT_PT = {
@@ -159,8 +159,8 @@ if __name__ == "__main__":
 
     # 3) Create an Assessment
     # 1) generate from local agent
-    # gen = generate_questions("Python Developer with Django experience", 3)
-
+    gen = generate_questions("Python Developer with Django experience", 3)
+    payload = build_questions_payload(gen)
     # # 2) map to Supabase question objects
     # questions_payload = build_questions_payload(gen)
 
@@ -179,9 +179,20 @@ if __name__ == "__main__":
     #     "type":                "technical",
     #     "status":              "scheduled"
     # }
-
+    pays = {
+        "title": "zzzz",
+        "description": "A technical assessment for React developers.",
+        "duration": 60,
+        "passing_score": 70,
+        "instructions": "Answer all questions to the best of your ability.",
+        "questions":  payload,
+        "type": "technical",
+        "status": "scheduled"
+    }
     # # 4) send it to Supabase
-    # result = create_assessment_supabase(assessment_payload)
+    print(payload)
+    result = create_assessment_supabase(payload)
+    print("Assessment creation result:", result)
     # print("Supabase response:", result)
 
     

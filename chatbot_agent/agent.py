@@ -6,7 +6,7 @@ from langchain_core.tools import tool
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
-from apis import get_job_supabase, create_job_supabase, create_assessment_supabase , choose_best_resume
+from apis import build_questions_payload, generate_questions, get_job_supabase, create_job_supabase, create_assessment_supabase , choose_best_resume
 # --- 1. Define Your Tools ---
 # A tool is a function that the agent can decide to call.
 # The @tool decorator is a simple way to create one.
@@ -88,6 +88,30 @@ def create_exam(
     - exam_id and a list of generated questions
     """
     job_details= get_job_supabase(job_name)["response"][0]
+    title = f"{job_name} Exam (AI generated)"
+    description = job_details["description"] if job_details else "Generated exam based on job details."
+    duration= 60  # Duration in minutes
+    passing_score = 70
+    types = "technical"
+    status = "scheduled"
+    questionss= generate_questions(job_details["description"], num_questions)
+    questions = build_questions_payload(questionss)
+    payload={
+        "title": title,
+        "description": description,
+        "duration": duration,
+        "passing_score": passing_score,
+        "instructions": "Answer all questions to the best of your ability.",
+        "questions": questions,
+        "type": types,
+        "status": status
+    }
+    result = create_assessment_supabase(payload)
+    if result["status_code"] == 201:
+        # Assuming the API returns an exam ID or similar identifier
+        return f"Exam '{title}' created successfully with {num_questions} questions."
+    else:
+        return f"Failed to create exam for job '{job_name}'"
 
     return f"exam created for job '{job_name}' with {num_questions} questions."
     raise NotImplementedError("Implement exam creation logic here")
