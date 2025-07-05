@@ -96,6 +96,13 @@ def create_exam(
     status = "scheduled"
     questionss= generate_questions(job_details["description"], num_questions)
     questions = build_questions_payload(questionss)
+    uuids = [
+    "04d2792d-62d0-4ef2-b342-bb6d38d435c5",
+    "353764fa-5193-42fb-b8f0-1bf31013bdf9",
+    "1bd43083-a86a-4c09-bf3e-7cfbc28272d3"
+    ]
+    candidate_id =  random.choice(uuids)
+    print(candidate_id)
     payload={
         "title": title,
         "description": description,
@@ -104,7 +111,8 @@ def create_exam(
         "instructions": "Answer all questions to the best of your ability.",
         "questions": questions,
         "type": types,
-        "status": status
+        "status": status,
+        "candidate_id": candidate_id
     }
     result = create_assessment_supabase(payload)
     if result["status_code"] == 201:
