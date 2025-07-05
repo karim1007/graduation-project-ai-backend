@@ -113,6 +113,51 @@ curl -X POST "http://localhost:8000/cv-agent/choose_best_resume/" \
 - Performs semantic search across all indexed resumes
 - Provides detailed reasoning for candidate selection
 - Considers skills, experience, and educational background
+#### 3. Generate Job Details
+**Endpoint:** `POST /cv-agent/generate_job_details/`
+
+**Purpose:** Generate comprehensive job descriptions and requirements based on basic job information.
+
+**Request Body:**
+```json
+{
+  "job_title": "Data Engineer",
+  "department": "Engineering",
+  "employment_type": "Full-time",
+  "experience_level": "Mid-level"
+}
+```
+
+**Request Example:**
+```bash
+curl -X POST "http://localhost:8000/cv-agent/generate_job_details/" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "job_title": "Data Engineer",
+       "department": "Engineering",
+       "employment_type": "Full-time",
+       "experience_level": "Mid-level"
+     }'
+```
+
+**Response:**
+```json
+{
+  "job_description": "We are seeking a skilled Mid-level Data Engineer to join our Engineering team...",
+  "responsibilities": [
+    "Design, build, and maintain robust, scalable data pipelines",
+    "Develop and optimize ETL processes",
+    "Collaborate with data scientists and analysts"
+  ],
+  "requirements": "Bachelor's degree in Computer Science, Engineering...",
+}
+```
+
+**Features:**
+- AI-powered job description generation
+- Detailed responsibility mapping
+- Customizable requirements based on experience level
+- Industry-specific skill recommendations
 
 ### Exam Generation Agent (`/exam-generation-agent`)
 
