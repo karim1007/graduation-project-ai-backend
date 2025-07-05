@@ -16,10 +16,23 @@ from datetime import datetime
 import os
 import re
 import base64
+import requests
 
 
+def update_supabase_profile( payload: dict):
+    url = "https://zdaxvwxqyzmclscjlsoc.supabase.co/rest/v1/profiles?id=eq.353764fa-5193-42fb-b8f0-1bf31013bdf9"
+    headers = {
+        "apikey": "***REMOVED***",
+        "Authorization": "Bearer ***REMOVED***",
+        "Content-Type": "application/json"
+    }
+    new_payload = {"video_analysis": payload}
 
-
+    response = requests.patch(url, headers=headers, json=new_payload)
+    if response.status_code == 201:
+        return "Profile updated successfully." 
+    else:
+        return f"Failed to update profile: {response.status_code}"
 
 def encode_pdf_to_base64(pdf_path):
     """
@@ -290,7 +303,7 @@ def analyze_video_workflow(video_path: str) -> dict:
     report = format_analysis_report(sentiment_result)
     # Step 3: Emotional State Analysis
     emotional_insights = analyze_emotional_state(video_path, 2)
-    pixtral_insights = analyze_with_pixtral_model("C:\\Users\\Mohammed\\OneDrive - Nile University\\Desktop\\grad\\interview_agent\\output")
+    pixtral_insights = analyze_with_pixtral_model("interview_agent\\output")
     result = {
         "sentiment_analysis": report,
         "pixtral_insights": pixtral_insights
@@ -300,6 +313,7 @@ def analyze_video_workflow(video_path: str) -> dict:
     encoded = encode_pdf_to_base64(pdf_path)
     os.remove(pdf_path)  # Clean up the PDF file after encoding
     # Final result
+    update_supabase_profile(result)
     return {
         "sentiment_analysis": report,
         "pixtral_insights": pixtral_insights,
