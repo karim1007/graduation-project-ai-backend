@@ -57,7 +57,7 @@ def analyze_with_pixtral_model(output_dir: str):
     time.sleep(2)
     report_path = os.path.join(output_dir, "confidence_stress_analysis.json")
     frames_dir = os.path.join(output_dir, "frames")
-
+    time.sleep(2)
     if not os.path.exists(report_path) or not os.path.exists(frames_dir):
         print("❌ Required files not found.")
         return
