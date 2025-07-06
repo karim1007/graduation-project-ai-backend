@@ -143,7 +143,7 @@ def build_questions_payload(gen: dict) -> list:
             opts = [ln.split(") ",1)[1] for ln in lines[1:] if re.match(r"^[A-Z]\)", ln)]
             qobj["options"] = opts
             # ans like 'B) ...'
-            letter = re.match(r"^([A-Z])\)", ans).group(1)
+            letter = re.match(r"^([A-Z])\)", ans).group(1) if re.match(r"^([A-Z])\)", ans) else "A"
             qobj["correctAnswer"] = ord(letter) - ord("A")
 
         # True/False and others have no extra parsing
