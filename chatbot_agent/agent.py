@@ -96,9 +96,7 @@ def create_exam(
     types = "technical"
     status = "scheduled"
     questionss= generate_questions(job_details["description"], num_questions)
-    print("1-----------")
     questions = build_questions_payload(questionss)
-    print("2-----------")
     uuids = "353764fa-5193-42fb-b8f0-1bf31013bdf9"
    
     
@@ -116,9 +114,8 @@ def create_exam(
         "candidate_id": candidate_id
     }
     result = create_assessment_supabase(payload)
-    print("3-----------")
     assessment = get_supabase_assessment()
-    print("4-----------")
+
     link = f"http://localhost:3000/recruiter/assessments/{assessment[0]['id']}"
     if result["status_code"] == 201:
         # Assuming the API returns an exam ID or similar identifier
