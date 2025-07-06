@@ -29,7 +29,7 @@ async def upload_video(file: UploadFile = File(...), candidate_name: str = Form(
     print(save_path)
     with open(save_path, "wb") as buffer:
         buffer.write(await file.read())
-    candidate_directory = os.path.join("Test_Cheating_Detection\\frames", candidate_name)
+    candidate_directory = os.path.join("Test_Cheating_Detection/frames", candidate_name)
     # Extract frames from the uploaded video
     extract_frames(save_path, candidate_directory, 2)
     time.sleep(2)
