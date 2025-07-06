@@ -6,6 +6,8 @@ def get_supabase_job_url(job_title: str) -> str:
     base_url = "https://zdaxvwxqyzmclscjlsoc.supabase.co/rest/v1/jobs"
     encoded_title = urllib.parse.quote(job_title)
     return f"{base_url}?title=eq.{encoded_title}&select=*"
+
+
 # === Supabase Configuration ===
 SUPABASE_URL = "https://zdaxvwxqyzmclscjlsoc.supabase.co/rest/v1"
 API_KEY = "***REMOVED***"
@@ -16,6 +18,29 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
+def get_supabase_assessment() -> dict:
+    base_url = "https://zdaxvwxqyzmclscjlsoc.supabase.co/rest/v1/assessments"
+    
+    # You can optionally filter by title as well
+    params = {
+        "candidate_id": "eq.353764fa-5193-42fb-b8f0-1bf31013bdf9",
+        "select": "*"
+    }
+    
+    # To filter by title too, uncomment the line below:
+    # params["title"] = f"eq.{assessment_title}"
+
+    headers = {
+        "apikey": API_KEY,
+        "Authorization": f"Bearer {API_KEY}"
+    }
+
+    response = requests.get(base_url, headers=headers, params=params)
+
+    if response.ok:
+        return response.json()
+    else:
+        raise Exception(f"Failed to fetch: {response.status_code} - {response.text}")
 # === Functions ===
 def get_job_supabase(job_title: str) -> dict:
     """

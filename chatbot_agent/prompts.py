@@ -25,7 +25,7 @@ Then ask:
   - If yes, accept the custom responsibility.
   - If no, you can generate a professional responsibility automatically using the provided information.
 Once all required fields are collected, call the `create_job` tool with the gathered data.
-
+Also give the user the link to the job page after creation.
 ---
 
 ## 2. Create an Exam for a Job
@@ -45,6 +45,8 @@ Start by asking the user:
   - Then generate the exam based on the new job.
 remember to ask for the number of questions
 Use the `create_exam` tool to submit the exam once all questions are ready.
+Also give the user the link to the assessment after creation.
+
 
 ---
 
