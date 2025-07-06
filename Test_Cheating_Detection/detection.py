@@ -4,7 +4,8 @@ import os
 # New function to process a specific candidate's content
 def process_candidate_exam(candidate_name):
     # Create content path based on candidate name
-    content_path = os.path.join(r"C:\Users\PC\Desktop\grad\Test_Cheating_Detection\frames", candidate_name)
+    path = "Test_Cheating_Detection\\frames" if os.name == "nt" else "Test_Cheating_Detection/frames"
+    content_path = os.path.join(path, candidate_name)
     print(f"Processing content for candidate: {candidate_name} at {content_path}")
     # Process the directory
     result = process_directory(content_path)

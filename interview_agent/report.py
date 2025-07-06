@@ -303,7 +303,8 @@ def analyze_video_workflow(video_path: str) -> dict:
     report = format_analysis_report(sentiment_result)
     # Step 3: Emotional State Analysis
     emotional_insights = analyze_emotional_state(video_path, 2)
-    pixtral_insights = analyze_with_pixtral_model("interview_agent\\output")
+    path= "interview_agent\\output" if os.name == "nt" else "interview_agent/output"
+    pixtral_insights = analyze_with_pixtral_model(path)
     result = {
         "sentiment_analysis": report,
         "pixtral_insights": pixtral_insights
