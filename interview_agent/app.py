@@ -2,7 +2,7 @@ from unittest import result
 from fastapi import APIRouter, Request, File, UploadFile
 from fastapi.responses import JSONResponse
 from interview_agent.technical_depth_analysis import run_exam_pipeline
-from interview_agent.speech_to_text import transcribe_mp3
+from interview_agent.speech_to_text import synthesize_and_encode_audio, transcribe_mp3
 from interview_agent.emotion import analyze_emotional_state
 from interview_agent.pixtral import analyze_with_pixtral_model
 from interview_agent.report import analyze_video_workflow
@@ -15,6 +15,21 @@ async def transcribe_audio(file: UploadFile = File(...)):
     text = transcribe_mp3(file)
 
     return {"transcription": text}
+
+@router.post("/text-to-speech")
+async def text_to_speech(request: Request):
+    data = await request.json()
+    text = data.get("text")
+    if not text or not isinstance(text, str):
+        return JSONResponse(
+            status_code=400,
+            content={"error": "A valid 'text' field is required."}
+        )
+    # Assuming you have a function called synthesize_speech(text) that returns audio bytes
+    audio_bytes = synthesize_and_encode_audio(text)
+    return JSONResponse(
+        content={"audio": audio_bytes}
+    )
 
 @router.post("/evaluate-exam")
 async def evaluate(request: Request):
