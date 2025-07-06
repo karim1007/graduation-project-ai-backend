@@ -6,7 +6,7 @@ from langchain_core.tools import tool
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
-from apis import build_questions_payload, generate_questions, get_job_supabase, create_job_supabase, create_assessment_supabase , choose_best_resume
+from apis import build_questions_payload, generate_questions, get_job_supabase, create_job_supabase, create_assessment_supabase , choose_best_resume, get_supabase_assessment
 # --- 1. Define Your Tools ---
 # A tool is a function that the agent can decide to call.
 # The @tool decorator is a simple way to create one.
@@ -65,7 +65,8 @@ def create_job(
     if result["status_code"] == 201:
         # Assuming the API returns a job ID or similar identifier
         job_id = get_job_supabase(job_name)["response"][0]["id"]
-        return f"Job '{job_name}' created successfully with id '{job_id}'."
+        link = f"http://localhost:3000/recruiter/jobs/{job_id}"
+        return f"Job '{job_name}' created successfully with id '{job_id}'. You can view it at {link}"
     else:
         return f"Failed to create job '{job_name}'. Status code: {result['status_code']}"
 
@@ -88,7 +89,7 @@ def create_exam(
     - exam_id and a list of generated questions
     """
     job_details= get_job_supabase(job_name)["response"][0]
-    title = f"{job_name} Exam (AI generated)"
+    title = f"{job_name} Exam (AI generateds)"
     description = job_details["description"] if job_details else "Generated exam based on job details."
     duration= 60  # Duration in minutes
     passing_score = 70
@@ -96,12 +97,10 @@ def create_exam(
     status = "scheduled"
     questionss= generate_questions(job_details["description"], num_questions)
     questions = build_questions_payload(questionss)
-    uuids = [
-    "04d2792d-62d0-4ef2-b342-bb6d38d435c5",
-    "353764fa-5193-42fb-b8f0-1bf31013bdf9",
-    "1bd43083-a86a-4c09-bf3e-7cfbc28272d3"
-    ]
-    candidate_id =  random.choice(uuids)
+    uuids = "353764fa-5193-42fb-b8f0-1bf31013bdf9"
+   
+    
+    candidate_id =  uuids
     print(candidate_id)
     payload={
         "title": title,
@@ -115,9 +114,12 @@ def create_exam(
         "candidate_id": candidate_id
     }
     result = create_assessment_supabase(payload)
+    assessment = get_supabase_assessment()
+
+    link = f"http://localhost:3000/recruiter/assessments/{assessment[0]['id']}"
     if result["status_code"] == 201:
         # Assuming the API returns an exam ID or similar identifier
-        return f"Exam '{title}' created successfully with {num_questions} questions."
+        return f"Exam '{title}' created successfully with {num_questions} questions. You can view it at {link}"
     else:
         return f"Failed to create exam for job '{job_name}'"
 
