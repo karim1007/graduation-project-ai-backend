@@ -11,20 +11,20 @@ from openai import OpenAI
 
 
 
-def update_supabase_profile( payload: dict):
-    url = "https://***REMOVED***/rest/v1/profiles?id=eq.353764fa-5193-42fb-b8f0-1bf31013bdf9"
-    headers = {
-        "apikey": "***REMOVED***",
-        "Authorization": "Bearer ***REMOVED***",
-        "Content-Type": "application/json"
-    }
-    new_payload = {"video_analysis": payload}
+# def update_supabase_profile( payload: dict):
+#     url = "https://***REMOVED***/rest/v1/profiles?id=eq.353764fa-5193-42fb-b8f0-1bf31013bdf9"
+#     headers = {
+#         "apikey": "***REMOVED***",
+#         "Authorization": "Bearer ***REMOVED***",
+#         "Content-Type": "application/json"
+#     }
+#     new_payload = {"video_analysis": payload}
 
-    response = requests.patch(url, headers=headers, json=new_payload)
-    if response.status_code == 201:
-        return "Profile updated successfully." 
-    else:
-        return f"Failed to update profile: {response.status_code}"
+#     response = requests.patch(url, headers=headers, json=new_payload)
+#     if response.status_code == 201:
+#         return "Profile updated successfully." 
+#     else:
+#         return f"Failed to update profile: {response.status_code}"
 
 def beautify_analysis_with_llm(raw_sentiment: str, raw_pixtral: str) -> str:
     """
@@ -86,13 +86,12 @@ def analyze_video_workflow(video_path: str) -> dict:
 
     beautified_report = beautify_analysis_with_llm(raw_sentiment, raw_pixtral)
 
-    result = {
-        "beautified_report": beautified_report
-    }
+    return beautified_report
+    
 
-    update_supabase_profile(result)
+    # update_supabase_profile(result)
 
-    return result
+    
 
 # if __name__ == "__main__":
 #     video_path = "interview_agent/Emaraty.mp4"
