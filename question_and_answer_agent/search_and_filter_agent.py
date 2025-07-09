@@ -1,5 +1,6 @@
 import json
 from typing import List, Literal, Optional, Dict, Any
+import os
 from pinecone import Pinecone
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
@@ -9,8 +10,11 @@ from langchain_core.runnables import Runnable
 from langchain_core.messages import HumanMessage
 
 # === 🔐 API Keys ===
-OPENAI_API_KEY = "***REMOVED***"
-PINECONE_API_KEY = "***REMOVED***"
+from dotenv import load_dotenv
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_HOST = "https://q-and-a-ca6oioo.svc.aped-4627-b74a.pinecone.io"
 
 # === 🌐 Pinecone Setup ===

@@ -5,7 +5,9 @@ from fastapi import UploadFile
 import os
 # Load Whisper model once at module level
 
-Eleven_API_KEY = "***REMOVED***"
+from dotenv import load_dotenv
+load_dotenv()
+Eleven_API_KEY = os.getenv("ELEVEN_API_KEY")
 model = whisper.load_model("base")  # or "small", "medium", "large"
 
 # def transcribe_mp3(uploaded_file: UploadFile) -> str:

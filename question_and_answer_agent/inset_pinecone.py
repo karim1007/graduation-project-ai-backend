@@ -2,9 +2,11 @@
 import json
 import uuid
 from pinecone import Pinecone
-
+import os
 # Init Pinecone client
-pc = Pinecone(api_key="***REMOVED***")
+from dotenv import load_dotenv
+load_dotenv()
+pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
 # Connect to your integrated index
 index = pc.Index(host="https://q-and-a-ca6oioo.svc.aped-4627-b74a.pinecone.io")

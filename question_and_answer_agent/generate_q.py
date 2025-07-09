@@ -7,7 +7,9 @@ import time
 import os
 
 # 🔐 Set your OpenAI API key
-openai.api_key = "***REMOVED***"  # Replace with your OpenAI key
+from dotenv import load_dotenv
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Static lists
 question_types = ["essay", "mcq", "coding", "true_false"]

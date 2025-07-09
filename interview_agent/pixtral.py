@@ -6,7 +6,9 @@ from mistralai import Mistral
 
 # === Configuration ===
 MODEL_NAME = "pixtral-12b-2409"
-API_KEY = "***REMOVED***"  # <<< REPLACE with your real API key
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.getenv("MISTRAL_API_KEY")
 
 def load_confidence_stress_report(report_path: str) -> dict:
     with open(report_path, 'r') as f:
