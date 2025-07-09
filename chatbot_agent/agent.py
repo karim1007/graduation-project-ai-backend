@@ -7,6 +7,10 @@ from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 from apis import build_questions_payload, generate_questions, get_job_supabase, create_job_supabase, create_assessment_supabase , choose_best_resume, get_supabase_assessment
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 # --- 1. Define Your Tools ---
 # A tool is a function that the agent can decide to call.
 # The @tool decorator is a simple way to create one.
@@ -156,7 +160,7 @@ tools = [select_best_candidate, create_job, create_exam]
 # Make sure you have your OPENAI_API_KEY set in your environment variables.
 # os.environ["OPENAI_API_KEY"] = "sk-..." # uncomment and set your key if not in env
 
-llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.4, api_key="***REMOVED***")
+llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.4, api_key=os.getenv("OPENAI_API_KEY"))
 
 # The `create_react_agent` function is a prebuilt graph that chains together
 # an LLM call (to decide the next action) and a tool executor.

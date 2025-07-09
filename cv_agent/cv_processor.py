@@ -1,8 +1,13 @@
 import fitz  # PyMuPDF
 from pinecone import Pinecone
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # === Pinecone Setup ===
-pc = Pinecone(api_key="***REMOVED***")
+pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 index = pc.Index(host="https://q-and-a-ca6oioo.svc.aped-4627-b74a.pinecone.io")
 namespace = "resumes"
 

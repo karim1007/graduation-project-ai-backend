@@ -1,16 +1,17 @@
 import requests
 import urllib.parse
 import re
-
+import os
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+API_KEY = os.getenv("SUPABASE_API_KEY")
 def get_supabase_job_url(job_title: str) -> str:
-    base_url = "https://***REMOVED***/rest/v1/jobs"
+    base_url = f"{SUPABASE_URL}/jobs"
     encoded_title = urllib.parse.quote(job_title)
     return f"{base_url}?title=eq.{encoded_title}&select=*"
 
 
 # === Supabase Configuration ===
-SUPABASE_URL = "https://***REMOVED***/rest/v1"
-API_KEY = "***REMOVED***"
+
 
 HEADERS = {
     "apikey": API_KEY,
@@ -19,8 +20,8 @@ HEADERS = {
 }
 
 def get_supabase_assessment() -> dict:
-    base_url = "https://***REMOVED***/rest/v1/assessments"
-    
+    base_url = f"{SUPABASE_URL}/assessments"
+
     # You can optionally filter by title as well
     params = {
         "candidate_id": "eq.353764fa-5193-42fb-b8f0-1bf31013bdf9",

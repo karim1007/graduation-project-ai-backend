@@ -5,11 +5,15 @@ from pinecone import Pinecone
 from typing import Optional, List
 import json
 import openai
-# === Setup ===
-openai.api_key = "***REMOVED***"  # Preferably use os.getenv()
+from dotenv import load_dotenv
 
-openai_api_key = "***REMOVED***"
-pinecone_api_key = "***REMOVED***"
+# Load environment variables
+load_dotenv()
+
+# === Setup ===
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai_api_key = os.getenv("OPENAI_API_KEY")
+pinecone_api_key = os.getenv("PINECONE_API_KEY")
 
 # Initialize Pinecone client and index
 pc = Pinecone(api_key=pinecone_api_key)
@@ -134,4 +138,4 @@ f"Be as detailed as possible, including specific skills, qualifications, and any
         return json.loads(content)
     except json.JSONDecodeError:
         raise ValueError("LLM did not return valid JSON. Raw output:\n" + content)
-    
+

@@ -12,10 +12,10 @@ from openai import OpenAI
 
 
 # def update_supabase_profile( payload: dict):
-#     url = "https://***REMOVED***/rest/v1/profiles?id=eq.353764fa-5193-42fb-b8f0-1bf31013bdf9"
+#     url = "https://zdaxvwxqyzmclscjlsoc.supabase.co/rest/v1/profiles?id=eq.353764fa-5193-42fb-b8f0-1bf31013bdf9"
 #     headers = {
-#         "apikey": "***REMOVED***",
-#         "Authorization": "Bearer ***REMOVED***",
+#         "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkYXh2d3hxeXptY2xzY2psc29jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5Mzk2OTQsImV4cCI6MjA2NjUxNTY5NH0.xlE-DJHyR17ID5P2lRu-lQKgcd_x_okgfwIwcwpQ_EY",
+#         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkYXh2d3hxeXptY2xzY2psc29jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5Mzk2OTQsImV4cCI6MjA2NjUxNTY5NH0.xlE-DJHyR17ID5P2lRu-lQKgcd_x_okgfwIwcwpQ_EY",
 #         "Content-Type": "application/json"
 #     }
 #     new_payload = {"video_analysis": payload}

@@ -4,9 +4,14 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.runnables import Runnable
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # === 🔐 Initialize LLM ===
-llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.4, api_key="***REMOVED***")
+llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.4, api_key=os.getenv("OPENAI_API_KEY"))
 evaluate_prompt = ChatPromptTemplate.from_template("""
 You are a technical evaluator comparing a candidate's answer to a golden answer.
 
@@ -126,4 +131,3 @@ if __name__ == "__main__":
         "Not sure how to implement this",
     ]
 
-    
